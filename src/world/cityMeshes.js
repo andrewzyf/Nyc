@@ -318,7 +318,7 @@ export class CityMeshes {
       b.parts.forEach((p, i) => {
         color.set(p.color || b.color);
         const flags = (p.cornice ? 1 : 0) + (p.storefront ? 2 : 0);
-        const ex = { aBld: [p.win ?? 1, b.seed + i * 7.3, p.y1, flags] };
+        const ex = { aBld: [p.win ?? 1, Math.round(b.seed + i * 7.3), p.y1, flags] };
         const first = i === 0;
         batch.box(p.x0, p.x1, p.y0, p.y1, p.z0, p.z1, color, {
           ex,
@@ -372,7 +372,7 @@ export class CityMeshes {
     const color = new THREE.Color();
     for (const b of this.model.backdrop) {
       color.set(b.color);
-      batch.box(b.x0, b.x1, 0, b.h, b.z0, b.z1, color, { ex: { aBld: [b.win, b.seed, b.h, b.h < 30 ? 1 : 0] } });
+      batch.box(b.x0, b.x1, 0, b.h, b.z0, b.z1, color, { ex: { aBld: [b.win, Math.round(b.seed), b.h, b.h < 30 ? 1 : 0] } });
     }
     this._mesh(batch.build(), this.materials.building, { name: 'backdrop' });
   }
@@ -491,8 +491,8 @@ export class CityMeshes {
     const trunkMat = lambert('#5e4636');
     this.treeInstancer = new ProximityInstancer(scene, {
       items: model.trees,
-      radius: 560 * mul,
-      capacity: Math.round(7000 * mul),
+      radius: 480 * mul,
+      capacity: Math.round(5200 * mul),
       name: 'trees',
       parts: [
         { geometry: trunkGeo, material: trunkMat, castShadow: q !== 'low' },
@@ -506,6 +506,8 @@ export class CityMeshes {
         d.rotation.y = it.seed * 6.28;
         const s = it.s;
         d.scale.set(s, s, s);
+        // bare branches only matter when the leaves are gone
+        if (part === 1 && this.season !== 'winter') return false;
         if (part >= 2) {
           const winter = this.season === 'winter' && it.kind !== 3;
           if (winter) return false;
@@ -524,8 +526,8 @@ export class CityMeshes {
     // Rooftop water towers & HVAC -------------------------------------------------
     const towers = model.roofProps.filter((p) => p.kind === 'watertower');
     const hvac = model.roofProps.filter((p) => p.kind === 'hvac');
-    const tankGeo = new THREE.CylinderGeometry(1.7, 1.75, 3.2, 10).translate(0, 4.4, 0);
-    const coneGeo = new THREE.ConeGeometry(1.95, 1.5, 10).translate(0, 6.75, 0);
+    const tankGeo = new THREE.CylinderGeometry(1.7, 1.75, 3.2, 8).translate(0, 4.4, 0);
+    const coneGeo = new THREE.ConeGeometry(1.95, 1.5, 8).translate(0, 6.75, 0);
     const legsGeo = (() => {
       const b = new GeometryBatch();
       for (const [lx, lz] of [
@@ -544,8 +546,8 @@ export class CityMeshes {
     this.instancers.push(
       new ProximityInstancer(scene, {
         items: towers,
-        radius: 900,
-        capacity: 2600,
+        radius: 650 * mul,
+        capacity: 1800,
         name: 'watertowers',
         parts: [
           { geometry: legsGeo, material: lambert('#3b3b3b') },

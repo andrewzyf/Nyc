@@ -16,6 +16,7 @@ import { Pedestrians } from './world/pedestrians.js';
 import { Traffic } from './world/traffic.js';
 import { EventFx } from './world/eventFx.js';
 import { Markers } from './world/markers.js';
+import { Signs } from './world/signs.js';
 import { WORLD_UNIFORMS } from './world/materials.js';
 
 import { Player } from './player/player.js';
@@ -110,6 +111,7 @@ export class Game {
     this.traffic = new Traffic(this.scene, this.model, { capacity: q === 'low' ? 30 : q === 'high' ? 80 : 55 });
     this.eventFx = new EventFx(this.scene, this.model);
     this.markers = new Markers(this.scene);
+    this.signs = new Signs(this.scene, this.model, { count: q === 'low' ? 16 : 28 });
     this.rig = new CameraRig(this.camera, this.model);
     this.rig.sensitivity = this.settings.sensitivity;
     this.rig.invertY = this.settings.invertY;
@@ -522,6 +524,7 @@ export class Game {
     WORLD_UNIFORMS.uWet.value = snap.wetness;
     this.env.update(dt, { minuteOfDay: clock.minuteOfDay, sunrise: sun.sunrise, sunset: sun.sunset, maxAlt: sun.maxAlt, weather: snap, focus, camera: this.camera });
     this.city.update(focus.x, focus.z);
+    this.signs.update(dt, focus.x, focus.z);
     if (this._season !== clock.season) {
       this._season = clock.season;
       this.city.setSeason(this._season);
@@ -890,6 +893,8 @@ export class Game {
       quality = qualities[h.kind] ?? 1;
       if (h.kind === 'lease') quality = 0.9 + (h.quality || 3) * 0.06;
     }
+    const hr = this.clock.hour;
+    if ((where === 'hostel' || where === 'shelter') && hr >= 10 && hr < 19) return { ok: false, msg: 'Beds open for check-in at 7 PM. Come back this evening.' };
     if (where === 'hostel') {
       const h = this.housing.home;
       if (h.kind === 'hostel' && h.nights > 0 && h.poi === poi?.id) h.nights -= 1;

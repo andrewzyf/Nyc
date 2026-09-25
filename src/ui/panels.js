@@ -412,6 +412,7 @@ export class Panels {
         this._result(await g.sleepAt('home', null, 0, m));
       });
     if (g.clock.hour > 18 || g.clock.hour < 5) {
+      sleepTo(5 * 60, '5 AM');
       sleepTo(6 * 60, '6 AM');
       sleepTo(7 * 60, '7 AM');
       sleepTo(8 * 60 + 30, '8:30 AM');

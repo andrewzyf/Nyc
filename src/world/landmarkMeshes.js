@@ -455,7 +455,7 @@ export class Landmarks {
     const H = 87;
     const col = new THREE.Color('#d8c9ab');
     // walls
-    const ex = { aBld: [1, 7.7, H, 1] };
+    const ex = { aBld: [1, 8, H, 1] };
     for (let i = 0; i < 3; i++) {
       const [x0, z0] = P[i];
       const [x1, z1] = P[(i + 1) % 3];
@@ -595,7 +595,7 @@ export class Landmarks {
       [cx - T * 1.414, cz],
     ];
     const col = new THREE.Color('#8fb0c8');
-    const ex = { aBld: [0, 3.3, y1, 0] };
+    const ex = { aBld: [0, 3, y1, 0] };
     const P = (p, y) => [p[0], y, p[1]];
     const addTri = (a, b, c) => {
       // outward facing: centroid away from tower axis

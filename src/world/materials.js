@@ -100,12 +100,13 @@ export function createBuildingMaterial() {
           vec2 tang = normalize(vec2(-N.z, N.x) + vec2(1e-5));
           float u = dot(vWPos.xz, tang);
           float v = vWPos.y;
-          float style = vBld.x;
-          float seed = vBld.y;
-          float top = vBld.z;
-          float flags = vBld.w;
+          float style = floor(vBld.x + 0.5);
+          float seed = floor(vBld.y + 0.5);
+          float top = floor(vBld.z * 10.0 + 0.5) / 10.0;
+          // round first: interpolated 'constant' varyings can arrive as 1.99999
+          float flags = floor(vBld.w + 0.5);
           float cornice = mod(flags, 2.0);
-          float store = mod(floor(flags / 2.0), 2.0);
+          float store = mod(floor(flags * 0.5 + 0.01), 2.0);
 
           float fw = 3.0; float fh = 3.4;
           vec4 box = vec4(0.3, 0.7, 0.28, 0.8);
@@ -123,7 +124,7 @@ export function createBuildingMaterial() {
           mask *= step(minV, v) * step(v, top - 1.1) * isWall;
           if (style > 3.5) mask = 0.0;
           // anti-alias far away: fade pattern to its average
-          float aa = clamp(2.2 - max(fwidth(u) / fw, fwidth(v) / fh) * 6.5, 0.0, 1.0);
+          float aa = clamp(1.8 - max(fwidth(u) / fw, fwidth(v) / fh) * 7.0, 0.0, 1.0);
           float coverage = (box.y - box.x) * (box.w - box.z);
           float h = nymHash12(cell + vec2(seed, seed * 1.7));
           vec3 glass = mix(vec3(0.07, 0.09, 0.12), uSkyTint * 0.55, 0.35 + 0.35 * h);
@@ -140,7 +141,8 @@ export function createBuildingMaterial() {
           float sf = store * (1.0 - step(4.0, v)) * step(0.3, v) * isWall;
           float bay = fract(u / 5.5);
           float sfMask = sf * step(0.08, bay) * step(bay, 0.92) * step(0.5, v) * step(v, 3.3);
-          diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.1, 0.12, 0.13) + uSkyTint * 0.15, sfMask);
+          vec3 shopGlass = mix(vec3(0.06, 0.07, 0.08), uSkyTint * 0.45, smoothstep(0.6, 3.3, v) * 0.6);
+          diffuseColor.rgb = mix(diffuseColor.rgb, shopGlass, sfMask);
 
           // roofs
           float roof = step(0.5, N.y);

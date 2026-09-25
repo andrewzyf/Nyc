@@ -281,7 +281,7 @@ export class UI {
 
   /** Open a modal card. */
   openPanel({ icon = '🗽', iconBg, title, sub, body, footer, wide = false, dismissable = true, onClose }) {
-    this.closePanel(true);
+    this.closePanel();
     const close = h('button.close', { onclick: () => this.closePanel(), title: 'Close (Esc)' }, '✕');
     const head = h('div.ph', h('div.icon', { style: iconBg ? { background: iconBg } : null }, icon), h('div', h('h3', title), sub ? h('div.sub', sub) : null), dismissable ? close : null);
     const pb = h('div.pb', body);
