@@ -1,0 +1,35 @@
+// Ambient NPC barks. Keyed by context; the pedestrian system picks lines by weather,
+// season, time of day and neighborhood.
+export const LINES = {
+  greet: ['Hi!', 'Morning!', 'Hey there.', 'How ya doin’?', 'Nice day, huh?', 'Excuse me…', '’Sup.', 'Hello!'],
+  bump: ['Hey, I’m walkin’ here!', 'Watch it!', 'Whoa — sorry!', 'Excuse you.', 'Eyes up, pal.', 'Oop, my bad.', 'Walk much?'],
+  morning: ['Need. Coffee.', 'The train was packed today.', 'Late again…', 'Bagel first, then emails.'],
+  evening: ['Drinks after this?', 'What a day.', 'Finally off.', 'Takeout tonight for sure.'],
+  night: ['Where’s the good pizza around here?', 'Is the L even running?', 'Big night!', 'Taxi!'],
+  rain: ['Ugh, forgot my umbrella.', 'It’s pouring!', 'My shoes are soaked.', 'Five-dollar umbrellas at the bodega!'],
+  snow: ['Stay warm!', 'Watch that slush puddle.', 'Snow day!', 'Brrr.'],
+  heat: ['Hot one today.', 'The subway platform is a sauna.', 'Is it always this humid?', 'Ice coffee weather.'],
+  spring: ['Finally, sunshine!', 'Cherry blossoms are out.', 'Park weather!'],
+  summer: ['Beach this weekend?', 'Rooftop tonight?', 'Hydrant’s open on 5th!'],
+  fall: ['Sweater weather.', 'Pumpkin spice everything.', 'Best season in the city.'],
+  winter: ['Holiday windows are up!', 'Cold enough for ya?', 'My radiator won’t stop clanking.'],
+  tourist: ['Which way is Times Square?', 'Is this the Empire State?', 'Can you take our picture?', 'Is it safe to eat a hot dog?'],
+  local: ['Don’t stop in the middle of the sidewalk.', 'Rent went up again.', 'I’ve lived here 30 years.', 'My bodega guy knows my order.'],
+  event: ['What’s going on over there?', 'This is amazing!', 'Best parade ever.', 'Can you see anything?'],
+  honk: ['*HONK*', '*HONK HONK*', 'C’mon, move!', 'Light’s green!'],
+};
+
+export const NEWS_FILLER = [
+  'City Council debates adding more benches to subway platforms. Pigeons in favor.',
+  'Rat spotted carrying an entire slice down the stairs at 1st Ave. Community inspired.',
+  'Bodega cat named "Mayor" wins neighborhood popularity poll by a landslide.',
+  'Brunch wait times reach historic highs in Williamsburg.',
+  'New bike lanes open on 2nd Avenue; drivers and cyclists agree to disagree.',
+  'Local man finally gets reservation at the restaurant he’s been trying for since 2019.',
+  'Survey finds 87% of New Yorkers have strong opinions about bagels. The rest are lying.',
+  'MTA announces station renovation will be done "soon." Commuters skeptical.',
+  'Heat wave prompts cooling centers to open citywide.',
+  'Street fair season returns with the same sausage-and-peppers stand as always.',
+  'Library card sign-ups surge as residents rediscover free museum passes.',
+  'Rent guidelines board meets again. Tenants rally outside.',
+];
