@@ -1319,6 +1319,39 @@ select {
   #prompt {
     bottom: 90px;
   }
+  #compass {
+    top: 90px;
+    max-width: calc(100vw - 32px);
+    font-size: 12px;
+    padding: 4px 12px 4px 6px;
+  }
+  #compass .arrow {
+    width: 22px;
+    height: 22px;
+    font-size: 14px;
+    flex: none;
+  }
+  #compass span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #toasts {
+    top: 128px;
+    gap: 6px;
+  }
+  .toast {
+    font-size: 12.5px;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .toast .ic {
+    font-size: 15px;
+  }
+  .toast.big {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
 }
 
 .sub {

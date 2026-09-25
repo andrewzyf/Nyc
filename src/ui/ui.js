@@ -136,7 +136,7 @@ export class UI {
     const g = this.game;
     // Compass to waypoint / gig
     const target = g.gigs.order ? (g.gigs.order.stage === 'pickup' ? g.gigs.order.pickup : g.gigs.order.dropoff) : g.waypoint;
-    if (target && !this.panelOpen) {
+    if (target && !this.panelOpen && !this.phone.isOpen) {
       const p = g.player.pos;
       const dx = target.x - p.x;
       const dz = target.z - p.z;

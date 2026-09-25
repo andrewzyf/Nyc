@@ -10,7 +10,7 @@ export const BACKGROUNDS = [
     skills: { creative: 6, service: 6, tech: 4 },
     start: { kind: 'hostel', nights: 3 },
     arrival: 'Port Authority',
-    greeting: 'Welcome to New York! Your hostel is a few blocks away. Maybe find a job before the money runs out?',
+    greeting: 'Your hostel is right around the corner — follow the arrow to drop your bags. Then maybe find a job before the money runs out?',
   },
   {
     id: 'immigrant',

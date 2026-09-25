@@ -190,10 +190,12 @@ export class Game {
     // Starting home
     const start = bg.start;
     let spawn = null;
+    let firstWaypoint = null;
     if (start.kind === 'hostel') {
       const hostel = this.model.pois.find((p) => p.type === 'hostel' && p.name === 'Big Apple Backpackers') || this.model.pois.find((p) => p.type === 'hostel');
       this.housing.setTemporary('hostel', { nights: start.nights, hostelPoi: hostel.id });
       spawn = { x: -314, z: 196 };
+      firstWaypoint = { x: hostel.x, z: hostel.z, label: `${hostel.name} (your hostel)`, kind: 'home' };
     } else {
       this.housing.setTemporary(start.kind, { near: start.near, days: start.days, host: start.host });
       const h = this.housing.home;
@@ -206,6 +208,7 @@ export class Game {
     }
     this.housing.refreshListings(true);
     this.events.planDay();
+    this.waypoint = firstWaypoint;
     this._startPlay(spawn.x, spawn.z, Math.PI);
     this.ui.toast(`Welcome to New York, ${profile.name}!`, { icon: '🗽', big: true });
     setTimeout(() => this.ui.toast(bg.greeting, { icon: '📍', duration: 9000 }), 1500);
